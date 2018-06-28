@@ -28,7 +28,7 @@ ast_globals_t ast_globals_add(ast_globals_t globals, ast_global_t global)
   globals->size++;
   globals->globals = realloc(globals->globals, globals->size * sizeof(global));
   globals->globals[globals->size-1] = global;
-   
+
   return globals;
 }
 
@@ -192,5 +192,14 @@ ast_scheduled_task_t ast_scheduled_task_new (char * task_name, crontab_rule_t ru
   ret->task_name = task_name;
   memcpy(ret->rule, rule, sizeof(crontab_rule_t));
 
+  return ret;
+}
+
+ast_print_t
+ast_print_new(char * var)
+{
+  ast_print_t ret = malloc(sizeof(struct ast_print));
+  ret->code_child_type = CODE_PRINT;
+  ret->var = var;
   return ret;
 }

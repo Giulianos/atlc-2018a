@@ -96,6 +96,9 @@ ast_code_print(ast_code_t code)
       ast_code_print(code->childs[i]->while_block.code);
       fprintf(output_file, "}");
         break;
+      case CODE_PRINT:
+        ast_print_print((ast_print_t)code->childs[i]->base);
+        break;
     }
   }
 }
@@ -202,4 +205,10 @@ ast_scheduled_task_print (ast_scheduled_task_t scheduled_task)
           scheduled_task->rule[CRON_WEEK_DAY]);
   fprintf(output_file, "task = scheduler_build_task(%s, rule);\n", scheduled_task->task_name);
   fprintf(output_file, "scheduler_add_task(task);\n");
+}
+
+void
+ast_print_print(ast_print_t node)
+{
+  fprintf(output_file, "printf(\"%%d\", %s);", node->var);
 }

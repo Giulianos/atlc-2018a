@@ -66,5 +66,8 @@ ast_scheduler_add(ast_scheduler_t scheduler, ast_scheduled_task_t scheduled_task
 ast_scheduled_task_t
 ast_scheduled_task_new (char * task_name, crontab_rule_t rule);
 
+ast_print_t
+ast_print_new(char * var);
+
 
 #endif

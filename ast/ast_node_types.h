@@ -19,12 +19,14 @@ typedef struct ast_while_block * ast_while_block_t;
 typedef struct ast_boolean * ast_boolean_t;
 typedef struct ast_scheduler * ast_scheduler_t;
 typedef struct ast_scheduled_task * ast_scheduled_task_t;
+typedef struct ast_print * ast_print_t;
 typedef union ast_code_child * ast_code_child_t;
 
 enum ast_code_child_type {
   CODE_ASSIGNMENT,
   CODE_IF,
   CODE_WHILE,
+  CODE_PRINT,
 };
 typedef enum ast_code_child_type ast_code_child_type_t;
 enum ast_arithmetic_type {
@@ -114,6 +116,11 @@ struct ast_scheduler {
 struct ast_scheduled_task {
   char * task_name;
   crontab_rule_t rule;
+};
+
+struct ast_print {
+  ast_code_child_type_t code_child_type;
+  char * var;
 };
 
 union ast_code_child {
