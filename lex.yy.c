@@ -808,127 +808,127 @@ YY_RULE_SETUP
 case 3:
 YY_RULE_SETUP
 #line 51 "scanner/scanner.l"
-{printf("INSTRUCTION_DELIMITER\n"); return INSTRUCTION_DELIMITER; }
+{ return INSTRUCTION_DELIMITER; }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
 #line 52 "scanner/scanner.l"
-{printf("IF_BLOCK_START\n"); return IF_BLOCK_START; }
+{ return IF_BLOCK_START; }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
 #line 53 "scanner/scanner.l"
-{printf("IF_BLOCK_END\n"); return IF_BLOCK_END; }
+{ return IF_BLOCK_END; }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
 #line 54 "scanner/scanner.l"
-{printf("WHILE_BLOCK_START\n"); return WHILE_BLOCK_START; }
+{ return WHILE_BLOCK_START; }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
 #line 55 "scanner/scanner.l"
-{printf("WHILE_BLOCK_END\n"); return WHILE_BLOCK_END; }
+{ return WHILE_BLOCK_END; }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
 #line 56 "scanner/scanner.l"
-{printf("DO_BLOCK\n"); return DO_BLOCK; }
+{ return DO_BLOCK; }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
 #line 57 "scanner/scanner.l"
-{printf("SCHEDULER_START\n"); return SCHEDULER_START; }
+{ return SCHEDULER_START; }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
 #line 58 "scanner/scanner.l"
-{printf("SCHEDULER_END\n"); return SCHEDULER_END; }
+{ return SCHEDULER_END; }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
 #line 59 "scanner/scanner.l"
-{printf("RUN_AT\n"); return RUN_AT; }
+{ return RUN_AT; }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
 #line 60 "scanner/scanner.l"
-{printf("VARIABLE_TYPE_STRING\n"); return VARIABLE_TYPE_STRING; }
+{ return VARIABLE_TYPE_STRING; }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
 #line 61 "scanner/scanner.l"
-{printf("VARIABLE_TYPE_INTEGER\n"); return VARIABLE_TYPE_INTEGER; }
+{ return VARIABLE_TYPE_INTEGER; }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
 #line 62 "scanner/scanner.l"
-{printf("TASK_START\n"); return TASK_START; }
+{ return TASK_START; }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
 #line 63 "scanner/scanner.l"
-{printf("TASK_END\n"); return TASK_END; }
+{ return TASK_END; }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
 #line 64 "scanner/scanner.l"
-{printf("BOOLEAN_CONSTANT_TRUE\n"); return BOOLEAN_CONSTANT_TRUE; }
+{ return BOOLEAN_CONSTANT_TRUE; }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
 #line 65 "scanner/scanner.l"
-{printf("BOOLEAN_CONSTANT_FALSE\n"); return BOOLEAN_CONSTANT_FALSE; }
+{ return BOOLEAN_CONSTANT_FALSE; }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
 #line 66 "scanner/scanner.l"
-{printf("ASSIGN_OPERATOR\n"); return ASSIGN_OPERATOR; }
+{ return ASSIGN_OPERATOR; }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
 #line 67 "scanner/scanner.l"
-{printf("PLUS_OPERATOR\n"); return PLUS_OPERATOR; }
+{ return PLUS_OPERATOR; }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
 #line 68 "scanner/scanner.l"
-{printf("MINUS_OPERATOR\n"); return MINUS_OPERATOR; }
+{ return MINUS_OPERATOR; }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
 #line 69 "scanner/scanner.l"
-{printf("MUL_OPERATOR\n"); return MUL_OPERATOR; }
+{ return MUL_OPERATOR; }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
 #line 70 "scanner/scanner.l"
-{printf("DIV_OPERATOR\n"); return DIV_OPERATOR; }
+{ return DIV_OPERATOR; }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
 #line 71 "scanner/scanner.l"
-{printf("AND_OPERATOR\n"); return AND_OPERATOR; }
+{ return AND_OPERATOR; }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
 #line 72 "scanner/scanner.l"
-{printf("OR_OPERATOR\n"); return OR_OPERATOR; }
+{ return OR_OPERATOR; }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
 #line 73 "scanner/scanner.l"
-{printf("NOT_OPERATOR\n"); return NOT_OPERATOR; }
+{ return NOT_OPERATOR; }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
 #line 74 "scanner/scanner.l"
-{printf("OPEN_PARENTHESIS\n"); return OPEN_PARENTHESIS; }
+{ return OPEN_PARENTHESIS; }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
 #line 75 "scanner/scanner.l"
-{printf("CLOSE_PARENTHESIS\n"); return CLOSE_PARENTHESIS; }
+{ return CLOSE_PARENTHESIS; }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
@@ -948,16 +948,18 @@ return 0;
 case 30:
 YY_RULE_SETUP
 #line 81 "scanner/scanner.l"
-{ yylval.identifier = yytext;
+{
+                             yylval.identifier = malloc(strlen(yytext)+1);
+                             strcpy(yylval.identifier, yytext);
                              return IDENTIFIER;
                            }
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 85 "scanner/scanner.l"
+#line 87 "scanner/scanner.l"
 ECHO;
 	YY_BREAK
-#line 961 "lex.yy.c"
+#line 963 "lex.yy.c"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -1952,7 +1954,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 85 "scanner/scanner.l"
+#line 87 "scanner/scanner.l"
 
 
 
