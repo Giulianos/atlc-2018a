@@ -1,0 +1,8 @@
+integer var1;
+TASK mitarea
+var1=5;
+ENDTASK
+
+SCHEDULE
+mi_tarea @ * * * * *;
+ENDSCHEDULE

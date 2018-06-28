@@ -45,6 +45,9 @@ ast_tasks_print(ast_tasks_t tasks)
 void
 ast_task_print (ast_task_t task)
 {
+  if(task->variables != NULL) {
+    ast_variables_print(task->variables);
+  }
   fprintf(output_file, "void %s(){\n", task->name);
   ast_code_print(task->code);
   fprintf(output_file, "}\n");

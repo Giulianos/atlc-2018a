@@ -1,13 +1,14 @@
-/* A Bison parser, made by GNU Bison 3.0.4.  */
+/* A Bison parser, made by GNU Bison 2.3.  */
 
-/* Bison interface for Yacc-like parsers in C
+/* Skeleton interface for Bison's Yacc-like parsers in C
 
-   Copyright (C) 1984, 1989-1990, 2000-2015 Free Software Foundation, Inc.
+   Copyright (C) 1984, 1989, 1990, 2000, 2001, 2002, 2003, 2004, 2005, 2006
+   Free Software Foundation, Inc.
 
-   This program is free software: you can redistribute it and/or modify
+   This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
-   the Free Software Foundation, either version 3 of the License, or
-   (at your option) any later version.
+   the Free Software Foundation; either version 2, or (at your option)
+   any later version.
 
    This program is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -15,7 +16,9 @@
    GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
+   along with this program; if not, write to the Free Software
+   Foundation, Inc., 51 Franklin Street, Fifth Floor,
+   Boston, MA 02110-1301, USA.  */
 
 /* As a special exception, you may create a larger work that contains
    part or all of the Bison parser skeleton and distribute that work
@@ -30,63 +33,86 @@
    This special exception was added by the Free Software Foundation in
    version 2.2 of Bison.  */
 
-#ifndef YY_YY_PARSER_TAB_H_INCLUDED
-# define YY_YY_PARSER_TAB_H_INCLUDED
-/* Debug traces.  */
-#ifndef YYDEBUG
-# define YYDEBUG 0
-#endif
-#if YYDEBUG
-extern int yydebug;
-#endif
-
-/* Token type.  */
+/* Tokens.  */
 #ifndef YYTOKENTYPE
 # define YYTOKENTYPE
-  enum yytokentype
-  {
-    IDENTIFIER = 258,
-    STRING = 259,
-    INTEGER = 260,
-    INSTRUCTION_DELIMITER = 261,
-    IF_BLOCK_START = 262,
-    IF_BLOCK_END = 263,
-    WHILE_BLOCK_START = 264,
-    WHILE_BLOCK_END = 265,
-    DO_BLOCK = 266,
-    SCHEDULER_START = 267,
-    SCHEDULER_END = 268,
-    RUN_AT = 269,
-    VARIABLE_TYPE_STRING = 270,
-    VARIABLE_TYPE_INTEGER = 271,
-    TASK_START = 272,
-    TASK_END = 273,
-    BOOLEAN_CONSTANT_TRUE = 274,
-    BOOLEAN_CONSTANT_FALSE = 275,
-    ASSIGN_OPERATOR = 276,
-    PLUS_OPERATOR = 277,
-    MINUS_OPERATOR = 278,
-    MUL_OPERATOR = 279,
-    DIV_OPERATOR = 280,
-    AND_OPERATOR = 281,
-    OR_OPERATOR = 282,
-    NOT_OPERATOR = 283,
-    OPEN_PARENTHESIS = 284,
-    CLOSE_PARENTHESIS = 285,
-    SPACE = 286,
-    WILDCARD = 287
-  };
+   /* Put the tokens into the symbol table, so that GDB and other debuggers
+      know about them.  */
+   enum yytokentype {
+     IDENTIFIER = 258,
+     STRING = 259,
+     INTEGER = 260,
+     INSTRUCTION_DELIMITER = 261,
+     IF_BLOCK_START = 262,
+     IF_BLOCK_END = 263,
+     WHILE_BLOCK_START = 264,
+     WHILE_BLOCK_END = 265,
+     DO_BLOCK = 266,
+     SCHEDULER_START = 267,
+     SCHEDULER_END = 268,
+     RUN_AT = 269,
+     VARIABLE_TYPE_STRING = 270,
+     VARIABLE_TYPE_INTEGER = 271,
+     TASK_START = 272,
+     TASK_END = 273,
+     BOOLEAN_CONSTANT_TRUE = 274,
+     BOOLEAN_CONSTANT_FALSE = 275,
+     ASSIGN_OPERATOR = 276,
+     PLUS_OPERATOR = 277,
+     MINUS_OPERATOR = 278,
+     MUL_OPERATOR = 279,
+     DIV_OPERATOR = 280,
+     AND_OPERATOR = 281,
+     OR_OPERATOR = 282,
+     NOT_OPERATOR = 283,
+     OPEN_PARENTHESIS = 284,
+     CLOSE_PARENTHESIS = 285,
+     CRON_DEL = 286,
+     WILDCARD = 287
+   };
 #endif
+/* Tokens.  */
+#define IDENTIFIER 258
+#define STRING 259
+#define INTEGER 260
+#define INSTRUCTION_DELIMITER 261
+#define IF_BLOCK_START 262
+#define IF_BLOCK_END 263
+#define WHILE_BLOCK_START 264
+#define WHILE_BLOCK_END 265
+#define DO_BLOCK 266
+#define SCHEDULER_START 267
+#define SCHEDULER_END 268
+#define RUN_AT 269
+#define VARIABLE_TYPE_STRING 270
+#define VARIABLE_TYPE_INTEGER 271
+#define TASK_START 272
+#define TASK_END 273
+#define BOOLEAN_CONSTANT_TRUE 274
+#define BOOLEAN_CONSTANT_FALSE 275
+#define ASSIGN_OPERATOR 276
+#define PLUS_OPERATOR 277
+#define MINUS_OPERATOR 278
+#define MUL_OPERATOR 279
+#define DIV_OPERATOR 280
+#define AND_OPERATOR 281
+#define OR_OPERATOR 282
+#define NOT_OPERATOR 283
+#define OPEN_PARENTHESIS 284
+#define CLOSE_PARENTHESIS 285
+#define CRON_DEL 286
+#define WILDCARD 287
 
-/* Value type.  */
+
+
+
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-
-union YYSTYPE
+typedef union YYSTYPE
+#line 15 "parser/parser.y"
 {
-#line 11 "parser/parser.y" /* yacc.c:1909  */
-
   int number;
   char * identifier;
+  char * string;
   ast_program_t program;
   ast_globals_t global_list;
   ast_global_t global;
@@ -105,18 +131,14 @@ union YYSTYPE
   ast_code_child_t  instruction;
   variable_type_t  var_type;
   crontab_rule_t crontab_rule;
-
-#line 110 "parser.tab.h" /* yacc.c:1909  */
-};
-
-typedef union YYSTYPE YYSTYPE;
-# define YYSTYPE_IS_TRIVIAL 1
+}
+/* Line 1529 of yacc.c.  */
+#line 137 "parser.tab.h"
+	YYSTYPE;
+# define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
+# define YYSTYPE_IS_TRIVIAL 1
 #endif
-
 
 extern YYSTYPE yylval;
 
-int yyparse (void);
-
-#endif /* !YY_YY_PARSER_TAB_H_INCLUDED  */

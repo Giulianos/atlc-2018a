@@ -8,6 +8,7 @@ ast_program_t ast_program_new(ast_globals_t globals, ast_tasks_t tasks, ast_sche
   ret->globals = globals;
   ret->tasks = tasks;
   ret->scheduler = scheduler;
+  printf("Created program\n");
   return ret;
 }
 
@@ -17,6 +18,8 @@ ast_globals_t ast_globals_new(ast_global_t global)
   ret->globals = malloc(sizeof(struct ast_global));
   ret->globals[0] = global;
   ret->size = 1;
+
+  printf("Created globals\n");
   return ret;
 }
 
@@ -25,6 +28,7 @@ ast_globals_t ast_globals_add(ast_globals_t globals, ast_global_t global)
   globals->size++;
   globals->globals = realloc(globals->globals, globals->size * sizeof(global));
   globals->globals[globals->size-1] = global;
+  printf("Created add\n");
   return globals;
 }
 
@@ -32,6 +36,7 @@ ast_global_t ast_global_new(char * name)
 {
   ast_global_t ret = malloc(sizeof(struct ast_global));
   ret->name = name;
+  printf("Created global\n");
   return ret;
 }
 
@@ -41,6 +46,7 @@ ast_tasks_t ast_tasks_new(ast_task_t task)
   ret->tasks = malloc(sizeof(struct ast_task));
   ret->tasks[0] = task;
   ret->size = 1;
+  printf("Created tasks\n");
   return ret;
 }
 
@@ -49,6 +55,7 @@ ast_tasks_t ast_tasks_add(ast_tasks_t tasks, ast_task_t task)
   tasks->size++;
   tasks->tasks = realloc(tasks->tasks, tasks->size * sizeof(task));
   tasks->tasks[tasks->size-1] = task;
+  printf("Added tasks\n");
   return tasks;
 }
 
@@ -58,6 +65,7 @@ ast_task_t ast_task_new (char * name, ast_variables_t variables, ast_code_t code
   ret->name = name;
   ret->code = code;
   ret->variables = variables;
+  printf("Created task\n");
   return ret;
 }
 
@@ -67,6 +75,7 @@ ast_variables_t ast_variables_new(ast_variable_t variable)
   ret->variables = malloc(sizeof(struct ast_variable));
   ret->variables[0] = variable;
   ret->size = 1;
+  printf("Created variables\n");
   return ret;
 }
 
@@ -75,6 +84,7 @@ ast_variables_t ast_variables_add(ast_variables_t variables, ast_variable_t vari
   variables->size++;
   variables->variables = realloc(variables->variables, variables->size * sizeof(variable));
   variables->variables[variables->size-1] = variable;
+  printf("Created variables\n");
   return variables;
 }
 
@@ -82,6 +92,7 @@ ast_variable_t ast_variable_new(char * name)
 {
   ast_variable_t ret = malloc(sizeof(struct ast_variable));
   ret->name = name;
+  printf("Created variable\n");
   return ret;
 }
 
@@ -91,6 +102,7 @@ ast_code_t ast_code_new(ast_code_child_t child)
   ret->childs = malloc(sizeof(union ast_code_child));
   ret->childs[0] = child;
   ret->size = 1;
+  printf("Created code\n");
   return ret;
 }
 
@@ -99,6 +111,7 @@ ast_code_t ast_code_add(ast_code_t code, ast_code_child_t code_child)
   code->size++;
   code->childs = realloc(code->childs, code->size * sizeof(code_child));
   code->childs[code->size-1] = code_child;
+  printf("Added code\n");
   return code;
 }
 
@@ -108,6 +121,7 @@ ast_assignment_t ast_assignment_new(char * var_name, ast_arithmetic_t arithmetic
   ret->code_child_type = CODE_ASSIGNMENT;
   ret->var_name = var_name;
   ret->arithmetic = arithmetic;
+  printf("Created assignment\n");
   return ret;
 }
 
@@ -119,6 +133,7 @@ ast_arithmetic_t ast_arithmetic_new(ast_arithmetic_type_t type, ast_arithmetic_t
   ret->op2 = op2;
   ret->var_id = var_id;
   ret->value = value;
+  printf("Created arithmetic\n");
   return ret;
 }
 
@@ -128,6 +143,7 @@ ast_if_block_t ast_if_block_new(ast_boolean_t boolean, ast_code_t code)
   ret->boolean = boolean;
   ret->code_child_type = CODE_IF;
   ret->code = code;
+  printf("Created if\n");
   return ret;
 }
 
@@ -137,6 +153,7 @@ ast_while_block_t ast_while_block_new(ast_boolean_t boolean, ast_code_t code)
   ret->boolean = boolean;
   ret->code_child_type = CODE_WHILE;
   ret->code = code;
+  printf("Created while\n");
   return ret;
 }
 
@@ -146,6 +163,7 @@ ast_boolean_t ast_boolean_new(ast_boolean_type_t type, ast_boolean_t op1, ast_bo
   ret->type = type;
   ret->op1 = op1;
   ret->op2 = op2;
+  printf("Created boolean\n");
   return ret;
 }
 
@@ -155,6 +173,7 @@ ast_scheduler_t ast_scheduler_new(ast_scheduled_task_t scheduled_task)
   ret->scheduled_tasks = malloc(sizeof(struct ast_scheduled_task));
   ret->scheduled_tasks[0] = scheduled_task;
   ret->size = 1;
+  printf("Created scheduler\n");
   return ret;
 }
 
@@ -163,6 +182,7 @@ ast_scheduler_t ast_scheduler_add(ast_scheduler_t scheduler, ast_scheduled_task_
 scheduler->size++;
 scheduler->scheduled_tasks = realloc(scheduler->scheduled_tasks, scheduler->size * sizeof(scheduled_task));
 scheduler->scheduled_tasks[scheduler->size-1] = scheduled_task;
+printf("Added scheduler\n");
 return scheduler;
 }
 
@@ -171,5 +191,6 @@ ast_scheduled_task_t ast_scheduled_task_new (char * task_name, crontab_rule_t ru
   ast_scheduled_task_t ret = malloc(sizeof(struct ast_scheduled_task));
   ret->task_name = task_name;
   memcpy(ret->rule, rule, sizeof(crontab_rule_t));
+  printf("Created scheduled task\n");
   return ret;
 }

@@ -21,10 +21,10 @@ SCHEDULER_INCLUDE=-I$(SCHEDULER_DIR)
 SYMBOL_TABLE_INCLUDE=-I$(SYMBOL_TABLE_DIR)
 AST_INCLUDE=-I$(AST_DIR)
 
-PARSER_OUT=y.tab.c
+PARSER_OUT=parser.tab.c
 SCANNER_OUT=lex.yy.c
 
-all: parser scanner
+all: scanner
 
 	$(CC) -ly -ll \
 				$(PARSER_INCLUDE)       \
@@ -41,7 +41,7 @@ all: parser scanner
 parser:
 	$(YACC) -d $(PARSER_SRC)
 
-scanner:
+scanner: parser
 	$(LEX) -o$(SCANNER_OUT) $(SCANNER_SRC)
 
 clean:

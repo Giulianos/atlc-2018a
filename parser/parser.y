@@ -3,14 +3,19 @@
 #include <ast_node_types.h>
 #include <ast.h>
 #include <symbol_table.h>
+#include <ast_node_print.h>
+#include <stdio.h>
 int yylex();
-int yyerror();
+void yyerror(char * s){
+  fprintf(stderr,"%s\n", s);
+}
 %}
 
 %union
 {
   int number;
   char * identifier;
+  char * string;
   ast_program_t program;
   ast_globals_t global_list;
   ast_global_t global;
@@ -73,7 +78,7 @@ int yyerror();
 %token OPEN_PARENTHESIS;
 %token CLOSE_PARENTHESIS;
 
-%token SPACE;
+%token CRON_DEL;
 %token WILDCARD;
 
 %type  <program>        program
@@ -98,8 +103,8 @@ int yyerror();
 
 %%
 
-program             : globals tasks scheduler       { $$ = ast_program_new($1,$2,$3); }
-                    | tasks scheduler               { $$ = ast_program_new(NULL,$1,$2); }
+program             : globals tasks scheduler       {  ast_program_print(ast_program_new($1,$2,$3)); }
+                    | tasks scheduler               { ast_program_print(ast_program_new(NULL,$1,$2)); }
                     ;
 
 globals             : global globals                { $$ = ast_globals_add($2, $1); }
@@ -121,6 +126,7 @@ tasks               : task tasks { $$ = ast_tasks_add($2,$1); }
                     ;
 
 task                : TASK_START IDENTIFIER variables code TASK_END { symbol_table_add_symbol(symbol_table_create_task($2)); $$ = ast_task_new($2,$3,$4); }
+                    | TASK_START IDENTIFIER code TASK_END { symbol_table_add_symbol(symbol_table_create_task($2)); $$ = ast_task_new($2,NULL,$3); }
                     ;
 
 variables           : variable variables              { $$ = ast_variables_add($2, $1); }
@@ -182,10 +188,10 @@ scheduled_tasks     : scheduled_task scheduled_tasks                            
                     | scheduled_task                                                { $$ = ast_scheduler_new($1); }
                     ;
 
-scheduled_task      : IDENTIFIER RUN_AT cron_rule                                   { $$ = ast_scheduled_task_new($1,$3); }
+scheduled_task      : IDENTIFIER RUN_AT cron_rule INSTRUCTION_DELIMITER             { $$ = ast_scheduled_task_new($1,$3); }
                     ;
 
-cron_rule           : cron_value SPACE cron_value SPACE cron_value SPACE cron_value SPACE cron_value { $$[CRON_MINUTE] = $1;
+cron_rule           : cron_value CRON_DEL cron_value CRON_DEL cron_value CRON_DEL cron_value CRON_DEL cron_value { $$[CRON_MINUTE] = $1;
                                                                                                        $$[CRON_HOUR] = $3;
                                                                                                        $$[CRON_MONTH_DAY] = $5;
                                                                                                        $$[CRON_MONTH] = $7;
@@ -195,3 +201,11 @@ cron_rule           : cron_value SPACE cron_value SPACE cron_value SPACE cron_va
 cron_value          : INTEGER       { $$ = $1; }
                     | MUL_OPERATOR  { $$ = -1; }
                     ;
+
+%%
+extern FILE * output_file;
+int
+main(int argc, char * argv[]) {
+  output_file = stdout;
+  return yyparse();
+}

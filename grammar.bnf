@@ -67,7 +67,7 @@
 <scheduled_tasks>   ::= <scheduled_task> <scheduled_tasks>
                     |   <scheduled_task>
 
-<scheduled_task>    ::= "IDENTIFIER" "RUN_AT" <cron_rule>
+<scheduled_task>    ::= "IDENTIFIER" "RUN_AT" <cron_rule> "INSTUCTION_DELIMITER"
 
 <cron_rule>         ::= <cron_value> "SPACE" <cron_value> "SPACE" <cron_value> "SPACE" <cron_value> "SPACE" <cron_value>
 
