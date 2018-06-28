@@ -10,12 +10,13 @@ enum symbol_type {
 enum variable_type {
   VAR_TYPE_INTEGER,
   VAR_TYPE_STRING,
+  VAR_TYPE_UNSPECIF,
 };
 
 typedef enum symbol_type symbol_type_t;
 typedef enum variable_type variable_type_t;
 
-struct symbol_variable {
+struct symbol_global {
   symbol_type_t type;
   char * identifier;
 
@@ -42,6 +43,7 @@ union symbol {
   symbol_variable variable;
 };
 
+typedef struct symbol_global * symbol_global_t;
 typedef struct symbol_variable * symbol_variable_t;
 typedef struct symbol_task * symbol_task_t;
 typedef union symbol * symbol_t;
@@ -110,5 +112,25 @@ bool symbol_table_exists_task(const char * identifier);
  */
 bool symbol_table_exists_global(const char * identifier);
 
+/**
+ * Returns the type of a variable
+ * @method symbol_table_get_variable_type
+ * @param  identifier                     Identifier of the variable
+ * @param  scope_identifier               Identifier of the scope
+ * @return                                The type of the variable if the
+ *                                        variable exists, VAR_TYPE_UNSPECIF
+ *                                        otherwise.
+ */
+variable_type_t symbol_table_get_variable_type(const char * identifier,
+                                               const char * scope_identifier);
+
+/**
+ * Returns the type of a global
+ * @method symbol_table_get_global_type
+ * @param  identifier                   Identifier of the global
+ * @return                              The type of the global if the global
+ *                                      exists, VAR_TYPE_UNSPECIF otherwise.
+ */
+variable_type_t symbol_table_get_global_type(const char * identifier);
 
 #endif
