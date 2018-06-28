@@ -1,4 +1,8 @@
 %{
+#include <symbol_table.h>
+#include <ast_node_types.h>
+#include <ast.h>
+#include <symbol_table.h>
 #include <y.tab.h>
 %}
 

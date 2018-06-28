@@ -2,7 +2,7 @@
 #include <symbol_table.h>
 #include <ast_node_types.h>
 #include <ast.h>
-#include <ast_node_print.h>
+#include <symbol_table.h>
 int yylex();
 int yyerror();
 %}
@@ -11,7 +11,6 @@ int yyerror();
 {
   int number;
   char * identifier;
-  char * string;
   ast_program_t program;
   ast_globals_t global_list;
   ast_global_t global;

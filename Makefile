@@ -26,7 +26,7 @@ SCANNER_OUT=lex.yy.c
 
 all: parser scanner
 
-	$(CC) -ly \
+	$(CC) -ly -ll \
 				$(PARSER_INCLUDE)       \
 				$(SCHEDULER_INCLUDE)    \
 				$(SYMBOL_TABLE_INCLUDE) \

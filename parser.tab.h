@@ -87,7 +87,6 @@ union YYSTYPE
 
   int number;
   char * identifier;
-  char * string;
   ast_program_t program;
   ast_globals_t global_list;
   ast_global_t global;
@@ -107,7 +106,7 @@ union YYSTYPE
   variable_type_t  var_type;
   crontab_rule_t crontab_rule;
 
-#line 111 "parser.tab.h" /* yacc.c:1909  */
+#line 110 "parser.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;
