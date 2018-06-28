@@ -16,7 +16,7 @@ ast_globals_t
 ast_globals_add(ast_globals_t globals, ast_global_t global);
 
 ast_global_t
-ast_global(char * name);
+ast_global_new(char * name);
 
 ast_tasks_t
 ast_tasks_new(ast_task_t task);
@@ -43,16 +43,16 @@ ast_code_t
 ast_code_add(ast_code_t code, ast_code_child_t code_child);
 
 ast_assignment_t
-ast_assignment_new(ast_code_child_type_t code_child_type, char * var_name, ast_arithmetic_t arithmetic);
+ast_assignment_new(char * var_name, ast_arithmetic_t arithmetic);
 
 ast_arithmetic_t
-ast_arithmetic_new(ast_arithmetic_type_t type, ast_arithmetic_t op1, ast_arithmetic_t op2);
+ast_arithmetic_new(ast_arithmetic_type_t type, ast_arithmetic_t op1, ast_arithmetic_t op2, char * var_id, int value);
 
 ast_if_block_t
-ast_if_block_new(ast_boolean_t boolean, ast_code_child_type_t code_child_type, ast_code_t code);
+ast_if_block_new(ast_boolean_t boolean, ast_code_t code);
 
 ast_while_block_t
-ast_while_block_new(ast_boolean_t boolean, ast_code_child_type_t code_child_type, ast_code_t code);
+ast_while_block_new(ast_boolean_t boolean, ast_code_t code);
 
 ast_boolean_t
 ast_boolean_new(ast_boolean_type_t type, ast_boolean_t op1, ast_boolean_t op2);

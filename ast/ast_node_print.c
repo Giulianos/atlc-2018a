@@ -1,7 +1,7 @@
 #include "ast_node_print.h"
 #include <stdio.h>
 
-static FILE * output_file;
+FILE * output_file;
 
 void
 ast_program_print(ast_program_t program)
@@ -77,6 +77,7 @@ ast_code_print(ast_code_t code)
       case CODE_ASSIGNMENT:
         fprintf(output_file, "%s=", code->childs[i]->assignment.var_name);
         ast_arithmetic_print(code->childs[i]->assignment.arithmetic);
+        fprintf(output_file, ";");
         break;
       case CODE_IF:
         fprintf(output_file, "if(");
@@ -101,16 +102,32 @@ ast_arithmetic_print(ast_arithmetic_t arithmetic)
 {
   switch(arithmetic->type) {
     case AST_ARIT_SUM:
-      fprintf(output_file, "(%s + %s)\n", arithmetic->op1, arithmetic->op2);
+      fprintf(output_file, "(");
+      ast_arithmetic_print(arithmetic->op1);
+      fprintf(output_file, " + ");
+      ast_arithmetic_print(arithmetic->op2);
+      fprintf(output_file, ")");
       break;
     case AST_ARIT_DIF:
-      fprintf(output_file, "(%s - %s)\n", arithmetic->op1, arithmetic->op2);
+      fprintf(output_file, "(");
+      ast_arithmetic_print(arithmetic->op1);
+      fprintf(output_file, " + ");
+      ast_arithmetic_print(arithmetic->op2);
+      fprintf(output_file, ")");
       break;
     case AST_ARIT_PROD:
-      fprintf(output_file, "(%s * %s)\n", arithmetic->op1, arithmetic->op2);
+      fprintf(output_file, "(");
+      ast_arithmetic_print(arithmetic->op1);
+      fprintf(output_file, " * ");
+      ast_arithmetic_print(arithmetic->op2);
+      fprintf(output_file, ")");
       break;
     case AST_ARIT_DIV:
-      fprintf(output_file, "(%s / %s)\n", arithmetic->op1, arithmetic->op2);
+      fprintf(output_file, "(");
+      ast_arithmetic_print(arithmetic->op1);
+      fprintf(output_file, " - ");
+      ast_arithmetic_print(arithmetic->op2);
+      fprintf(output_file, ")");
       break;
     case AST_ARIT_CONST:
       fprintf(output_file, "%d", arithmetic->value);
@@ -126,20 +143,30 @@ ast_boolean_print(ast_boolean_t boolean)
 {
   switch(boolean->type) {
     case AST_BOOL_AND:
-    fprintf(output_file,"(%s && %s)\n", boolean->op1, boolean->op2);
-    break;
+      fprintf(output_file, "(");
+      ast_boolean_print(boolean->op1);
+      fprintf(output_file, " && ");
+      ast_boolean_print(boolean->op2);
+      fprintf(output_file, ")");
+      break;
     case AST_BOOL_OR:
-    fprintf(output_file,"(%s || %s)\n", boolean->op1, boolean->op2);
-    break;
+      fprintf(output_file, "(");
+      ast_boolean_print(boolean->op1);
+      fprintf(output_file, " || ");
+      ast_boolean_print(boolean->op2);
+      fprintf(output_file, ")");
+      break;
     case AST_BOOL_NOT:
-    fprintf(output_file,"!(%s)\n", boolean->op1);
-    break;
+      fprintf(output_file, "!(");
+      ast_boolean_print(boolean->op1);
+      fprintf(output_file, ")");
+      break;
     case AST_BOOL_TRUE:
-    fprintf(output_file,"true\n");
-    break;
+      fprintf(output_file,"true\n");
+      break;
     case AST_BOOL_FALSE:
-    fprintf(output_file,"false\n");
-    break;
+      fprintf(output_file,"false\n");
+      break;
   }
 }
 

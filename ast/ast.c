@@ -28,7 +28,7 @@ ast_globals_t ast_globals_add(ast_globals_t globals, ast_global_t global)
   return globals;
 }
 
-ast_global_t ast_global(char * name)
+ast_global_t ast_global_new(char * name)
 {
   ast_global_t ret = malloc(sizeof(struct ast_global));
   ret->name = name;
@@ -101,38 +101,40 @@ ast_code_t ast_code_add(ast_code_t code, ast_code_child_t code_child)
   return code;
 }
 
-ast_assignment_t ast_assignment_new(ast_code_child_type_t code_child_type, char * var_name, ast_arithmetic_t arithmetic)
+ast_assignment_t ast_assignment_new(char * var_name, ast_arithmetic_t arithmetic)
 {
   ast_assignment_t ret = malloc(sizeof(struct ast_assignment));
-  ret->code_child_type = code_child_type;
+  ret->code_child_type = CODE_ASSIGNMENT;
   ret->var_name = var_name;
   ret->arithmetic = arithmetic;
   return ret;
 }
 
-ast_arithmetic_t ast_arithmetic_new(ast_arithmetic_type_t type, ast_arithmetic_t op1, ast_arithmetic_t op2)
+ast_arithmetic_t ast_arithmetic_new(ast_arithmetic_type_t type, ast_arithmetic_t op1, ast_arithmetic_t op2, char * var_id, int value)
 {
   ast_arithmetic_t ret = malloc(sizeof(struct ast_arithmetic));
   ret->type = type;
   ret->op1 = op1;
   ret->op2 = op2;
+  ret->var_id = var_id;
+  ret->value = value;
   return ret;
 }
 
-ast_if_block_t ast_if_block_new(ast_boolean_t boolean, ast_code_child_type_t code_child_type, ast_code_t code)
+ast_if_block_t ast_if_block_new(ast_boolean_t boolean, ast_code_t code)
 {
   ast_if_block_t ret = malloc(sizeof(struct ast_if_block));
   ret->boolean = boolean;
-  ret->code_child_type = code_child_type;
+  ret->code_child_type = CODE_IF;
   ret->code = code;
   return ret;
 }
 
-ast_while_block_t ast_while_block_new(ast_boolean_t boolean, ast_code_child_type_t code_child_type, ast_code_t code)
+ast_while_block_t ast_while_block_new(ast_boolean_t boolean, ast_code_t code)
 {
   ast_while_block_t ret = malloc(sizeof(struct ast_while_block));
   ret->boolean = boolean;
-  ret->code_child_type = code_child_type;
+  ret->code_child_type = CODE_WHILE;
   ret->code = code;
   return ret;
 }
