@@ -52,11 +52,12 @@ ast_tasks_t ast_tasks_add(ast_tasks_t tasks, ast_task_t task)
   return tasks;
 }
 
-ast_task_t ast_task_new (char * name, ast_code_t code)
+ast_task_t ast_task_new (char * name, ast_variables_t variables, ast_code_t code)
 {
   ast_task_t ret = malloc(sizeof(struct ast_task));
   ret->name = name;
   ret->code = code;
+  ret->variables = variables;
   return ret;
 }
 

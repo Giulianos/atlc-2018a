@@ -1,8 +1,7 @@
 CC=gcc
-CC_FLAGS=-ly
-
-LEX=lex
-YACC=yacc
+CC_FLAGS=-
+LEX=flex
+YACC=bison
 
 COMPILER_TARGET=tc
 
@@ -27,7 +26,7 @@ SCANNER_OUT=lex.yy.c
 
 all: parser scanner
 
-	$(CC) $(CC_FLAGS)             \
+	$(CC) -ly \
 				$(PARSER_INCLUDE)       \
 				$(SCHEDULER_INCLUDE)    \
 				$(SYMBOL_TABLE_INCLUDE) \
@@ -43,7 +42,7 @@ parser:
 	$(YACC) -d $(PARSER_SRC)
 
 scanner:
-	$(LEX) $(SCANNER_SRC)
+	$(LEX) -o$(SCANNER_OUT) $(SCANNER_SRC)
 
 clean:
 	rm $(PARSER_DIR)/*.c

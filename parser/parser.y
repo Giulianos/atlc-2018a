@@ -2,6 +2,7 @@
 #include <symbol_table.h>
 #include <ast_node_types.h>
 #include <ast.h>
+#include <ast_node_print.h>
 int yylex();
 int yyerror();
 %}

@@ -63,6 +63,7 @@ struct ast_tasks {
 };
 struct ast_task {
   char * name;
+  ast_variables_t variables;
   ast_code_t code;
 };
 struct ast_variables {
