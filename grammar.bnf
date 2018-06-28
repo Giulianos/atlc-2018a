@@ -1,0 +1,74 @@
+<program>           ::= <globals> <tasks> <scheduler>
+                    |   <tasks> <scheduler>
+
+<globals>           ::= <global> <globals>
+                    |   <global>
+
+<global>            ::= <var_type> "IDENTIFIER" "INSTRUCTION_DELIMITER"
+
+<variable>          ::= <var_type> "IDENTIFIER" "INSTUCTION_DELIMITER"
+
+<var_type>          ::= "VAR_TYPE_INTEGER"
+                    |   "VAR_TYPE_STRING"
+
+<tasks>             ::= <task> <tasks>
+                    |   <task>
+
+<task>              ::= "TASK_START" <variables> <code> "TASK_END"
+
+<variables>         ::= <variable> <variables>
+                    |   <variable>
+
+<code>              ::= <instruction> <code>
+                    |   <if_block> <code>
+                    |   <while_block> <code>
+                    |   <instruction>
+                    |   <if_block>
+                    |   <while_block>
+
+<instruction>       ::= <assignment> "INSTRUCTION_DELIMITER"
+                    |   <print> "INSTRUCTION_DELIMITER"
+
+<assignment>        ::= "IDENTIFIER" "ASSIGN_OPERATOR" <arithmetic>
+                    |   "IDENTIFIER" "ASSIGN_OPERATOR" "string"
+                    |   "IDENTIFIER" "ASSIGN_OPERATOR" "IDENTIFIER"
+
+<arithmetic>        ::= "OPEN_PARENTHESIS" <arithmetic> "PLUS_OPERATOR" <term> "CLOSE_PARENTHESIS"
+                    |   "OPEN_PARENTHESIS" <arithmetic> "MINUS_OPERATOR" <term> "CLOSE_PARENTHESIS"
+                    |   <arithmetic> "PLUS_OPERATOR" <term>
+                    |   <arithmetic> "MINUS_OPERATOR" <term>
+                    |   <term>
+
+<term>              ::= "OPEN_PARENTHESIS" <term> "MUL_OPERATOR" <factor> "CLOSE_PARENTHESIS"
+                    |   "OPEN_PARENTHESIS" <term> "DIV_OPERATOR" <factor> "CLOSE_PARENTHESIS"
+                    |   <factor>
+                    |   <term> "MUL_OPERATOR" <factor>
+                    |   <term> "DIV_OPERATOR" <factor>
+
+<factor>            ::= "INTEGER"
+                    |   "IDENTIFIER"
+
+<print>             ::= "STRING"
+                    |   "IDENTIFIER"
+                    |   <arithmetic>
+
+<boolean>           :== "BOOLEAN_CONSTANT"
+                    |   "OPEN_PARENTHESIS" <boolean> "AND_OPERATOR" "CLOSE_PARENTHESIS"
+                    |   "OPEN_PARENTHESIS" <boolean> "OR_OPERATOR" "CLOSE_PARENTHESIS"
+                    |   "NOT_OPERATOR" <boolean>
+
+<if_block>          ::= "IF_BLOCK_START" <boolean> "DO_BLOCK" <code> "IF_BLOCK_END"
+
+<while_block>       ::= "WHILE_BLOCK_START" <boolean> "DO_BLOCK" <code> "WHILE_BLOCK_END"
+
+<scheduler>         ::= "SCHEDULER_START" <scheduled_tasks> "SCHEDULER_END"
+
+<scheduled_tasks>   ::= <scheduled_task> <scheduled_tasks>
+                    |   <scheduled_task>
+
+<scheduled_task>    ::= "IDENTIFIER" "RUN_AT" <cron_rule>
+
+<cron_rule>         ::= <cron_value> "SPACE" <cron_value> "SPACE" <cron_value> "SPACE" <cron_value> "SPACE" <cron_value>
+
+<cron_value>        ::= "INTEGER"
+                    |   "WILDCARD"
