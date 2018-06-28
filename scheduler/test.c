@@ -1,6 +1,8 @@
 #include "scheduler.h"
 #include <stdio.h>
 
+int global1;
+
 void
 print_hello_world()
 {

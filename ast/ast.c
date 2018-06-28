@@ -52,9 +52,10 @@ ast_tasks_t ast_tasks_add(ast_tasks_t tasks, ast_task_t task)
   return tasks;
 }
 
-ast_task_t ast_task_new (ast_code_t code)
+ast_task_t ast_task_new (char * name, ast_code_t code)
 {
   ast_task_t ret = malloc(sizeof(struct ast_task));
+  ret->name = name;
   ret->code = code;
   return ret;
 }
@@ -118,17 +119,19 @@ ast_arithmetic_t ast_arithmetic_new(ast_arithmetic_type_t type, ast_arithmetic_t
   return ret;
 }
 
-ast_if_block_t ast_if_block_new(ast_code_child_type_t code_child_type, ast_code_t code)
+ast_if_block_t ast_if_block_new(ast_boolean_t boolean, ast_code_child_type_t code_child_type, ast_code_t code)
 {
   ast_if_block_t ret = malloc(sizeof(struct ast_if_block));
+  ret->boolean = boolean;
   ret->code_child_type = code_child_type;
   ret->code = code;
   return ret;
 }
 
-ast_while_block_t ast_while_block_new(ast_code_child_type_t code_child_type, ast_code_t code)
+ast_while_block_t ast_while_block_new(ast_boolean_t boolean, ast_code_child_type_t code_child_type, ast_code_t code)
 {
   ast_while_block_t ret = malloc(sizeof(struct ast_while_block));
+  ret->boolean = boolean;
   ret->code_child_type = code_child_type;
   ret->code = code;
   return ret;
