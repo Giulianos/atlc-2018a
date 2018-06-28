@@ -4,5 +4,5 @@ var1=5;
 ENDTASK
 
 SCHEDULE
-mi_tarea @ *,*,*,*,*;
+mitarea @ *,*,*,*,*;
 ENDSCHEDULE
