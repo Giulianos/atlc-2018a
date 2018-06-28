@@ -1,5 +1,5 @@
-#include "scheduler.h"
-#include "scheduler_private.h"
+#include <scheduler.h>
+#include <scheduler_private.h>
 #include <pthread.h>
 #include <unistd.h>
 #include <stdlib.h>

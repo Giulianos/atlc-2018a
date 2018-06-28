@@ -1,4 +1,4 @@
-#include "ast_node_print.h"
+#include <ast_node_print.h>
 #include <stdio.h>
 
 FILE * output_file;

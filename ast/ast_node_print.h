@@ -1,7 +1,7 @@
 #ifndef AST_NODE_PRINT_H
 #define AST_NODE_PRINT_H
 
-#include "ast.h"
+#include <ast.h>
 #include <scheduler.h>
 
 /** ast node printers */

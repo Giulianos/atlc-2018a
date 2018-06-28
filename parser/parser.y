@@ -1,6 +1,9 @@
 %{
 #include <symbol_table.h>
+#include <ast_node_types.h>
 #include <ast.h>
+int yylex();
+int yyerror();
 %}
 
 %union
@@ -95,12 +98,12 @@
 
 %%
 
-program             : globals tasks scheduler       { %% = ast_program_new($1,$2,$3); }
-                    | tasks scheduler               { %% = ast_program_new(NULL,$1,$2); }
+program             : globals tasks scheduler       { $$ = ast_program_new($1,$2,$3); }
+                    | tasks scheduler               { $$ = ast_program_new(NULL,$1,$2); }
                     ;
 
-globals             : global globals                { %% = ast_globals_add($2, $1); }
-                    | global                        { %% = ast_globals_new($1); }
+globals             : global globals                { $$ = ast_globals_add($2, $1); }
+                    | global                        { $$ = ast_globals_new($1); }
                     ;
 
 global              : var_type IDENTIFIER INSTRUCTION_DELIMITER { symbol_table_add_symbol(symbol_table_create_global($2, $1)); $$ = ast_global_new($2); }
@@ -109,19 +112,19 @@ global              : var_type IDENTIFIER INSTRUCTION_DELIMITER { symbol_table_a
 variable            : var_type IDENTIFIER INSTRUCTION_DELIMITER { symbol_table_add_symbol(symbol_table_create_variable($2, $1, NULL)); $$ = ast_variable_new($2); }
                     ;
 
-var_type            : VARIABLE_TYPE_STRING { $$ = VAR_TYPE_STRING }
-                    | VARIABLE_TYPE_INTEGER { $$ = VAR_TYPE_INTEGER }
+var_type            : VARIABLE_TYPE_STRING { $$ = VAR_TYPE_STRING; }
+                    | VARIABLE_TYPE_INTEGER { $$ = VAR_TYPE_INTEGER; }
                     ;
 
-tasks               : task tasks { %% = ast_tasks_add($2,$1); }
-                    | task { %% = ast_tasks_new($1); }
+tasks               : task tasks { $$ = ast_tasks_add($2,$1); }
+                    | task { $$ = ast_tasks_new($1); }
                     ;
 
 task                : TASK_START IDENTIFIER variables code TASK_END { symbol_table_add_symbol(symbol_table_create_task($2)); $$ = ast_task_new($2,$3,$4); }
                     ;
 
-variables           : variable variables              { %% = ast_variables_add($2, $1); }
-                    | variable                        { %% = ast_variables_new($1); }
+variables           : variable variables              { $$ = ast_variables_add($2, $1); }
+                    | variable                        { $$ = ast_variables_new($1); }
                     ;
 
 code                : instruction code { ast_code_add($2,(ast_code_child_t)$1); }
@@ -172,7 +175,7 @@ while_block         : WHILE_BLOCK_START boolean DO_BLOCK code WHILE_BLOCK_END   
                     ;
 
 
-scheduler           : SCHEDULER_START scheduled_tasks SCHEDULER_END                 { $$ = $2 }
+scheduler           : SCHEDULER_START scheduled_tasks SCHEDULER_END                 { $$ = $2; }
                     ;
 
 scheduled_tasks     : scheduled_task scheduled_tasks                                { $$ = ast_scheduler_add($2,$1); }
@@ -182,8 +185,7 @@ scheduled_tasks     : scheduled_task scheduled_tasks                            
 scheduled_task      : IDENTIFIER RUN_AT cron_rule                                   { $$ = ast_scheduled_task_new($1,$3); }
                     ;
 
-cron_rule           : cron_value SPACE cron_value SPACE cron_value SPACE cron_value SPACE cron_value { $$ = malloc(crontab_rule_t);
-                                                                                                       $$[CRON_MINUTE] = $1;
+cron_rule           : cron_value SPACE cron_value SPACE cron_value SPACE cron_value SPACE cron_value { $$[CRON_MINUTE] = $1;
                                                                                                        $$[CRON_HOUR] = $3;
                                                                                                        $$[CRON_MONTH_DAY] = $5;
                                                                                                        $$[CRON_MONTH] = $7;
@@ -191,5 +193,5 @@ cron_rule           : cron_value SPACE cron_value SPACE cron_value SPACE cron_va
                     ;
 
 cron_value          : INTEGER       { $$ = $1; }
-                    | WILDCARD      { $$ = -1; }
+                    | MUL_OPERATOR  { $$ = -1; }
                     ;

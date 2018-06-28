@@ -108,7 +108,7 @@
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 7 "parser.y"
+#line 10 "parser/parser.y"
 {
   int number;
   char * identifier;

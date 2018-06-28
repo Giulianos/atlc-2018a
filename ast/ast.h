@@ -1,7 +1,7 @@
 #ifndef AST_H
 #define AST_H
 
-#include "ast_node_types.h"
+#include <ast_node_types.h>
 
 /** ast node constructors */
 
