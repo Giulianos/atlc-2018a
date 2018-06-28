@@ -25,7 +25,7 @@ ast_tasks_t
 ast_tasks_add(ast_tasks_t tasks, ast_task_t task);
 
 ast_task_t
-ast_task_new (char * name, ast_code_t code);
+ast_task_new (char * name, ast_variables_t variables, ast_code_t code);
 
 ast_variables_t
 ast_variables_new(ast_variable_t variable);

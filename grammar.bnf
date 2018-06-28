@@ -8,13 +8,13 @@
 
 <variable>          ::= <var_type> "IDENTIFIER" "INSTUCTION_DELIMITER"
 
-<var_type>          ::= "VAR_TYPE_INTEGER"
-                    |   "VAR_TYPE_STRING"
+<var_type>          ::= "VARIABLE_TYPE_INTEGER"
+                    |   "VARIABLE_TYPE_STRING"
 
 <tasks>             ::= <task> <tasks>
                     |   <task>
 
-<task>              ::= "TASK_START" <variables> <code> "TASK_END"
+<task>              ::= "TASK_START" "IDENTIFIER" <variables> <code> "TASK_END"
 
 <variables>         ::= <variable> <variables>
                     |   <variable>
@@ -30,7 +30,7 @@
                     |   <print> "INSTRUCTION_DELIMITER"
 
 <assignment>        ::= "IDENTIFIER" "ASSIGN_OPERATOR" <arithmetic>
-                    |   "IDENTIFIER" "ASSIGN_OPERATOR" "string"
+                    |   "IDENTIFIER" "ASSIGN_OPERATOR" "STRING"
                     |   "IDENTIFIER" "ASSIGN_OPERATOR" "IDENTIFIER"
 
 <arithmetic>        ::= "OPEN_PARENTHESIS" <arithmetic> "PLUS_OPERATOR" <term> "CLOSE_PARENTHESIS"
@@ -52,9 +52,10 @@
                     |   "IDENTIFIER"
                     |   <arithmetic>
 
-<boolean>           :== "BOOLEAN_CONSTANT"
-                    |   "OPEN_PARENTHESIS" <boolean> "AND_OPERATOR" "CLOSE_PARENTHESIS"
-                    |   "OPEN_PARENTHESIS" <boolean> "OR_OPERATOR" "CLOSE_PARENTHESIS"
+<boolean>           :== "BOOLEAN_CONSTANT_TRUE"
+                    |   "BOOLEAN_CONSTANT_FALSE"
+                    |   "OPEN_PARENTHESIS" <boolean> "AND_OPERATOR" <boolean> "CLOSE_PARENTHESIS"
+                    |   "OPEN_PARENTHESIS" <boolean> "OR_OPERATOR" <boolean> "CLOSE_PARENTHESIS"
                     |   "NOT_OPERATOR" <boolean>
 
 <if_block>          ::= "IF_BLOCK_START" <boolean> "DO_BLOCK" <code> "IF_BLOCK_END"
