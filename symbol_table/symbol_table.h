@@ -93,7 +93,7 @@ symbol_table_create_task(const char * identifier);
  * @return                            The created symbol
  */
 symbol_t
-symbol_table_create_global(const char * identifier);
+symbol_table_create_global(const char * identifier, variable_type_t type);
 
 /**
  * Checks if a variable exists in the table for a specified scope
@@ -149,5 +149,12 @@ symbol_table_get_variable_type(const char * identifier,
  */
 variable_type_t
 symbol_table_get_global_type(const char * identifier);
+
+/**
+ * Dumps the content of the symbol table to the stdout
+ * @method voidsymbol_table_dump
+ */
+void
+symbol_table_dump();
 
 #endif
